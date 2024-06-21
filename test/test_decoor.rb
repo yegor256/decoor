@@ -59,10 +59,11 @@ class TestDecoor < Minitest::Test
       end
     end
     cz = Class.new do
+      decoor(:origin)
+
       def initialize(origin, bar: nil)
         @origin = origin
         @bar = bar
-        decoor(:origin)
       end
 
       def foo

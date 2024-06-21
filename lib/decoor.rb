@@ -56,8 +56,8 @@ def decoor(origin, attrs = {}, &)
     c.class_eval(&)
     c.new(origin, attrs)
   else
-    instance_eval("def __get_origin__; @#{origin}; end", __FILE__, __LINE__) # def _get; @name; end
-    instance_eval do
+    class_eval("def __get_origin__; @#{origin}; end", __FILE__, __LINE__) # def _get; @name; end
+    class_eval do
       def method_missing(*args)
         o = __get_origin__
         o.send(*args) do |*a|
