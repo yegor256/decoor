@@ -33,17 +33,20 @@ class TestDecoor < Minitest::Test
       def booo
         yield 55
       end
+      def zero
+        0
+      end
     end
     x = decoor(cy.new, bar: 42) do
       def foo
         @bar
       end
       def sum
-        @origin.booo + 10
+        @origin.zero + 10
       end
     end
     assert_equal(42, x.foo)
-    assert_equal(64, x.sum)
+    assert_equal(10, x.sum)
     assert_equal(56, x.booo { |v| v + 1 })
   end
 
