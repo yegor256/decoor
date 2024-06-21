@@ -36,25 +36,17 @@ Gemspec/RequiredRubyVersion:
   Enabled: false
 Metrics/MethodLength:
   Enabled: false
-Style/ClassAndModuleChildren:
-  Enabled: false
-Layout/MultilineMethodCallIndentation:
-  Enabled: false
 Metrics/AbcSize:
   Enabled: false
 Metrics/BlockLength:
-  Max: 30
+  Enabled: false
 Metrics/CyclomaticComplexity:
-  Max: 25
+  Enabled: false
 Metrics/PerceivedComplexity:
-  Max: 30
+  Enabled: false
 Metrics/ClassLength:
   Enabled: false
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
-Naming/MethodParameterName:
-  MinNameLength: 2
 Layout/EndOfLine:
   EnforcedStyle: lf
-Security/MarshalLoad:
-  Enabled: false
