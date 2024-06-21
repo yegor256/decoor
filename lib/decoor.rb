@@ -54,24 +54,24 @@ def decoor(origin, attrs = {}, &)
       end
     end
     c.class_eval(&)
-    r = c.new(origin, attrs)
-    return r
-  end
-  instance_eval("def __get_origin__; @#{origin}; end", __FILE__, __LINE__) # def _get; @name; end
-  instance_eval do
-    def method_missing(*args)
-      o = __get_origin__
-      o.send(*args) do |*a|
-        yield(*a) if block_given?
+    c.new(origin, attrs)
+  else
+    instance_eval("def __get_origin__; @#{origin}; end", __FILE__, __LINE__) # def _get; @name; end
+    instance_eval do
+      def method_missing(*args)
+        o = __get_origin__
+        o.send(*args) do |*a|
+          yield(*a) if block_given?
+        end
       end
-    end
 
-    def respond_to?(mtd, inc = false)
-      __get_origin__.respond_to?(mtd, inc)
-    end
+      def respond_to?(mtd, inc = false)
+        __get_origin__.respond_to?(mtd, inc)
+      end
 
-    def respond_to_missing?(mtd, inc = false)
-      __get_origin__.respond_to_missing?(mtd, inc)
+      def respond_to_missing?(mtd, inc = false)
+        __get_origin__.respond_to_missing?(mtd, inc)
+      end
     end
   end
 end
