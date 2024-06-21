@@ -28,39 +28,50 @@
 def decoor(origin, attrs = {}, &)
   if block_given?
     c = Class.new do
-      def initialize(o, attrs)
-        @origin = o
-        attrs.each { |k, v| instance_eval("@#{k} = v") }
+      def initialize(origin, attrs)
+        @origin = origin
+        # rubocop:disable Style/HashEachMethods
+        # rubocop:disable Lint/UnusedBlockArgument
+        attrs.each do |k, v|
+          instance_eval("@#{k} = v", __FILE__, __LINE__) # @foo = v
+        end
+        # rubocop:enable Style/HashEachMethods
+        # rubocop:enable Lint/UnusedBlockArgument
       end
+
       def method_missing(*args)
         @origin.__send__(*args) do |*a|
           yield(*a) if block_given?
         end
       end
-      def respond_to?(m, inc = false)
-        @origin.respond_to?(m, inc)
+
+      def respond_to?(mtd, inc = false)
+        @origin.respond_to?(mtd, inc)
       end
-      def respond_to_missing?(m, inc = false)
-        @origin.respond_to_missing?(m, inc)
+
+      def respond_to_missing?(mtd, inc = false)
+        @origin.respond_to_missing?(mtd, inc)
       end
     end
     c.class_eval(&)
     r = c.new(origin, attrs)
     return r
   end
-  instance_eval("def __get_origin__; @#{origin}; end")
-  self.instance_eval do
+  instance_eval("def __get_origin__; @#{origin}; end", __FILE__, __LINE__) # def _get; @name; end
+  instance_eval do
     def method_missing(*args)
       o = __get_origin__
       o.send(*args) do |*a|
         yield(*a) if block_given?
       end
     end
-    def respond_to?(m, inc = false)
-      __get_origin__.respond_to?(m, inc)
+
+    def respond_to?(mtd, inc = false)
+      __get_origin__.respond_to?(mtd, inc)
     end
-    def respond_to_missing?(m, inc = false)
-      __get_origin__.respond_to_missing?(m, inc)
+
+    def respond_to_missing?(mtd, inc = false)
+      __get_origin__.respond_to_missing?(mtd, inc)
     end
   end
 end

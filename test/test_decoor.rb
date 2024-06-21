@@ -33,6 +33,7 @@ class TestDecoor < Minitest::Test
       def booo
         yield 55
       end
+
       def zero
         0
       end
@@ -41,6 +42,7 @@ class TestDecoor < Minitest::Test
       def foo
         @bar
       end
+
       def sum
         @origin.zero + 10
       end
@@ -62,6 +64,7 @@ class TestDecoor < Minitest::Test
         @bar = bar
         decoor(:origin)
       end
+
       def foo
         @bar
       end

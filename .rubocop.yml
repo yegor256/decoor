@@ -28,6 +28,10 @@ AllCops:
   SuggestExtensions: false
   NewCops: enable
 
+Style/OptionalBooleanParameter:
+  Enabled: false
+Lint/NestedMethodDefinition:
+  Enabled: false
 Gemspec/RequiredRubyVersion:
   Enabled: false
 Metrics/MethodLength:
