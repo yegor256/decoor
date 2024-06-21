@@ -45,12 +45,12 @@ def decoor(origin, attrs = {}, &)
         end
       end
 
-      def respond_to?(mtd, inc = false)
-        @origin.respond_to?(mtd, inc)
+      def respond_to?(_mtd, _inc = false)
+        true
       end
 
-      def respond_to_missing?(mtd, inc = false)
-        @origin.respond_to_missing?(mtd, inc)
+      def respond_to_missing?(_mtd, _inc = false)
+        true
       end
     end
     c.class_eval(&)
@@ -65,12 +65,12 @@ def decoor(origin, attrs = {}, &)
         end
       end
 
-      def respond_to?(mtd, inc = false)
-        __get_origin__.respond_to?(mtd, inc)
+      def respond_to?(_mtd, _inc = false)
+        true
       end
 
-      def respond_to_missing?(mtd, inc = false)
-        __get_origin__.respond_to_missing?(mtd, inc)
+      def respond_to_missing?(_mtd, _inc = false)
+        true
       end
     end
   end
