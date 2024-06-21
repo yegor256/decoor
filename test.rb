@@ -10,6 +10,12 @@ def decoor(origin, attrs = {}, &)
           yield(*a) if block_given?
         end
       end
+      def respond_to?(m, inc = false)
+        @origin.respond_to?(m, inc)
+      end
+      def respond_to_missing?(m, inc = false)
+        @origin.respond_to_missing?(m, inc)
+      end
     end
     c.class_eval(&)
     r = c.new(origin, attrs)
@@ -18,10 +24,16 @@ def decoor(origin, attrs = {}, &)
   instance_eval("def __get_origin__; @#{origin}; end")
   self.instance_eval do
     def method_missing(*args)
-      o = self.__get_origin__
+      o = __get_origin__
       o.send(*args) do |*a|
         yield(*a) if block_given?
       end
+    end
+    def respond_to?(m, inc = false)
+      __get_origin__.respond_to?(m, inc)
+    end
+    def respond_to_missing?(m, inc = false)
+      __get_origin__.respond_to_missing?(m, inc)
     end
   end
 end
