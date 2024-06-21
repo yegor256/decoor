@@ -3,13 +3,13 @@ adding new attributes and methods to it. Here is how:
 
 ```ruby
 require 'decoor'
-s = ' Hello, world! '
+s = ' Jeff Lebowski '
 d = decoor(s, br: ' ') do
   def parts
     @origin.strip.split(@br)
   end
 end
-assert(d.parts == ['Hello,', 'world!'])
+assert(d.parts == ['Jeff', 'Lebowski'])
 ```
 
 You may also turn an existing class into a decorator:
@@ -26,8 +26,8 @@ class MyString
     @origin.strip.split(@br)
   end
 end
-d = MyString.new(' Hello, world! ')
-assert(d.parts == ['Hello,', 'world!'])
+d = MyString.new('Jeff Lebowski')
+assert(d.parts == ['Jeff', 'Lebowski'])
 ```
 
 That's it.
