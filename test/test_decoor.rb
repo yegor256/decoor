@@ -38,8 +38,12 @@ class TestDecoor < Minitest::Test
       def foo
         @bar
       end
+      def sum
+        @origin.booo + 10
+      end
     end
     assert_equal(42, x.foo)
+    assert_equal(64, x.sum)
     assert_equal(56, x.booo { |v| v + 1 })
   end
 
