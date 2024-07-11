@@ -57,6 +57,10 @@ class TestDecoor < Minitest::Test
       def booo
         yield 44
       end
+
+      def to_s
+        'yes'
+      end
     end
     cz = Class.new do
       decoor(:origin)
@@ -73,5 +77,6 @@ class TestDecoor < Minitest::Test
     z = cz.new(cy.new, bar: 42)
     assert_equal(42, z.foo)
     assert_equal(45, z.booo { |v| v + 1 })
+    assert(z.to_s != 'yes')
   end
 end
