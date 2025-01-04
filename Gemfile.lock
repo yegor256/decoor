@@ -160,6 +160,8 @@ GEM
 
 PLATFORMS
   arm64-darwin-22
+  arm64-darwin-23
+  arm64-darwin-24
   x64-mingw-ucrt
   x86_64-darwin-20
   x86_64-linux
@@ -177,4 +179,4 @@ DEPENDENCIES
   yard (= 0.9.36)
 
 BUNDLED WITH
-   2.4.22
+   2.5.16
