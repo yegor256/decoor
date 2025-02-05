@@ -49,6 +49,6 @@ Layout/EmptyLineAfterGuardClause:
   Enabled: false
 Layout/EndOfLine:
   EnforcedStyle: lf
-required:
+require:
   - rubocop-rake
   - rubocop-minitest
