@@ -27,7 +27,6 @@ AllCops:
   TargetRubyVersion: 3.2
   SuggestExtensions: false
   NewCops: enable
-
 Style/OptionalBooleanParameter:
   Enabled: false
 Lint/NestedMethodDefinition:
@@ -50,3 +49,6 @@ Layout/EmptyLineAfterGuardClause:
   Enabled: false
 Layout/EndOfLine:
   EnforcedStyle: lf
+required:
+  - rubocop-rake
+  - rubocop-minitest
