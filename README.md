@@ -1,13 +1,13 @@
 # True Object-Oriented Decorator
 
-[![DevOps By Rultor.com](http://www.rultor.com/b/yegor256/decoor)](http://www.rultor.com/p/yegor256/decoor)
+[![DevOps By Rultor.com](https://www.rultor.com/b/yegor256/decoor)](https://www.rultor.com/p/yegor256/decoor)
 [![We recommend RubyMine](https://www.elegantobjects.org/rubymine.svg)](https://www.jetbrains.com/ruby/)
 
 [![rake](https://github.com/yegor256/decoor/actions/workflows/rake.yml/badge.svg)](https://github.com/yegor256/decoor/actions/workflows/rake.yml)
-[![PDD status](http://www.0pdd.com/svg?name=yegor256/decoor)](http://www.0pdd.com/p?name=yegor256/decoor)
-[![Gem Version](https://badge.fury.io/rb/decoor.svg)](http://badge.fury.io/rb/decoor)
+[![PDD status](https://www.0pdd.com/svg?name=yegor256/decoor)](https://www.0pdd.com/p?name=yegor256/decoor)
+[![Gem Version](https://badge.fury.io/rb/decoor.svg)](https://badge.fury.io/rb/decoor)
 [![Test Coverage](https://img.shields.io/codecov/c/github/yegor256/decoor.svg)](https://codecov.io/github/yegor256/decoor?branch=master)
-[![Yard Docs](http://img.shields.io/badge/yard-docs-blue.svg)](http://rubydoc.info/github/yegor256/decoor/master/frames)
+[![Yard Docs](https://img.shields.io/badge/yard-docs-blue.svg)](https://rubydoc.info/github/yegor256/decoor/master/frames)
 [![Hits-of-Code](https://hitsofcode.com/github/yegor256/decoor)](https://hitsofcode.com/view/github/yegor256/decoor)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/decoor/blob/master/LICENSE.txt)
 
