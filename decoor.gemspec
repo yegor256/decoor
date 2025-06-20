@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
     object-oriented.'
   s.authors = ['Yegor Bugayenko']
   s.email = 'yegor256@gmail.com'
-  s.homepage = 'http://github.com/yegor256/decoor.rb'
+  s.homepage = 'https://github.com/yegor256/decoor.rb'
   s.files = `git ls-files`.split($RS)
   s.rdoc_options = ['--charset=UTF-8']
   s.extra_rdoc_files = ['README.md', 'LICENSE.txt']
