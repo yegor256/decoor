@@ -39,7 +39,7 @@ class MyString
     @origin.strip.split(@br)
   end
 end
-d = MyString.new('Jeff Lebowski')
+d = MyString.new('Jeff Lebowski', ' ')
 assert(d.parts == ['Jeff', 'Lebowski'])
 ```
 
