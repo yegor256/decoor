@@ -5,11 +5,42 @@
 
 # System module, for global functions.
 module Kernel
-  # A function that decorates an object.
+  # Decorates an object by creating a proxy that delegates method calls to the original object.
   #
-  # Author:: Yegor Bugayenko (yegor256@gmail.com)
-  # Copyright:: Copyright (c) 2024-2025 Yegor Bugayenko
-  # License:: MIT
+  # This function creates a decorator pattern implementation that allows transparent delegation
+  # to an origin object while optionally adding additional behavior through a block.
+  #
+  # When called with a block, it creates a new anonymous class that wraps the origin object
+  # and evaluates the block in the context of that class, allowing additional methods to be defined.
+  #
+  # When called without a block from within a class definition, it sets up method_missing
+  # to delegate calls to the specified instance variable.
+  #
+  # @param origin [Object, Symbol] The object to be decorated (when block given) or the name
+  #   of an instance variable to delegate to (when no block given)
+  # @param attrs [Hash] Optional attributes to be set as instance variables on the decorator
+  #   (only used when block is given)
+  # @yield Block to be evaluated in the context of the decorator class, allowing additional
+  #   methods to be defined
+  # @return [Object] The decorated object (when block given) or nil (when no block given)
+  #
+  # @example Decorating an object with additional behavior
+  #   decorated = decoor(original_object, {cache: {}}) do
+  #     def cached_result
+  #       @cache[:result] ||= @origin.expensive_operation
+  #     end
+  #   end
+  #
+  # @example Setting up delegation within a class
+  #   class MyClass
+  #     def initialize(collaborator)
+  #       @collaborator = collaborator
+  #     end
+  #     decoor :collaborator
+  #   end
+  #
+  # @author Yegor Bugayenko (yegor256@gmail.com)
+  # @since 0.1.0
   def decoor(origin, attrs = {}, &)
     if block_given?
       c = Class.new do
