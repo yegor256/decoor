@@ -10,6 +10,11 @@ AllCops:
   TargetRubyVersion: 3.2
   SuggestExtensions: false
   NewCops: enable
+plugins:
+  - rubocop-rake
+  - rubocop-minitest
+Minitest/EmptyLineBeforeAssertionMethods:
+  Enabled: false
 Style/OptionalBooleanParameter:
   Enabled: false
 Lint/NestedMethodDefinition:
@@ -32,6 +37,3 @@ Layout/EmptyLineAfterGuardClause:
   Enabled: false
 Layout/EndOfLine:
   EnforcedStyle: lf
-require:
-  - rubocop-rake
-  - rubocop-minitest

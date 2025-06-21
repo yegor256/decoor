@@ -3,7 +3,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2024-2025 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-require 'minitest/autorun'
+require_relative 'test__helper'
 require_relative '../lib/decoor'
 
 # Decoor main module test.
@@ -60,6 +60,6 @@ class TestDecoor < Minitest::Test
     z = cz.new(cy.new, bar: 42)
     assert_equal(42, z.foo)
     assert_equal(45, z.booo { |v| v + 1 })
-    assert(z.to_s != 'yes')
+    refute_equal(z.to_s, 'yes')
   end
 end
