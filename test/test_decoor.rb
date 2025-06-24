@@ -35,6 +35,26 @@ class TestDecoor < Minitest::Test
     assert_equal(56, x.booo { |v| v + 1 })
   end
 
+  def test_with_named_parameters
+    x = decoor('') do
+      def foo(bar: 42)
+        bar + 1
+      end
+    end
+    assert_equal(43, x.foo)
+    assert_equal(3, x.foo(bar: 2))
+  end
+
+  def test_with_regular_and_named_parameters
+    x = decoor('') do
+      def foo(tmp, bar: 8)
+        tmp + bar
+      end
+    end
+    assert_equal(11, x.foo(3))
+    assert_equal(12, x.foo(5, bar: 7))
+  end
+
   def test_class_decoration
     cy = Class.new do
       def booo
