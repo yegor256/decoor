@@ -13,6 +13,7 @@ AllCops:
 plugins:
   - rubocop-rake
   - rubocop-minitest
+  - rubocop-elegant
 Minitest/EmptyLineBeforeAssertionMethods:
   Enabled: false
 Style/OptionalBooleanParameter:
@@ -35,5 +36,13 @@ Metrics/ClassLength:
   Enabled: false
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
+Layout/EmptyLineBetweenDefs:
+  Enabled: false
 Layout/EndOfLine:
   EnforcedStyle: lf
+Elegant/GoodMethodName:
+  AllowedNames:
+    - method_missing
+    - respond_to?
+    - respond_to_missing?
+    - __get_origin__
