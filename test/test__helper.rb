@@ -5,9 +5,10 @@
 
 $stdout.sync = true
 
+require 'coverage'
 require 'simplecov'
 require 'simplecov-cobertura'
-unless SimpleCov.running
+unless Coverage.running?
   SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
     [
       SimpleCov::Formatter::HTMLFormatter,
