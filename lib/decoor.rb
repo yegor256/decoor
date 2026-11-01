@@ -64,9 +64,7 @@ module Kernel
       c.class_eval(&)
       c.new(origin, attrs)
     else
-      # rubocop:disable Style/DocumentDynamicEvalDefinition
-      class_eval("def __get_origin__; @#{origin}; end", __FILE__, __LINE__)
-      # rubocop:enable Style/DocumentDynamicEvalDefinition
+      class_eval("def __get_origin__; @#{origin}; end # def __get_origin__; @origin; end", __FILE__, __LINE__)
       class_eval do
         def method_missing(*args)
           o = __get_origin__
