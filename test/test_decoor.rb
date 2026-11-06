@@ -84,6 +84,56 @@ class TestDecoor < Minitest::Test
     refute_equal(z.to_s, 'yes')
   end
 
+  def test_object_preserves_block_presence
+    origin =
+      Class.new do
+        def present?
+          block_given?
+        end
+      end.new
+    decorated = decoor(origin) { 42 }
+    refute_predicate(decorated, :present?)
+    refute(decorated.present?(&nil))
+    assert(decorated.present? { 42 })
+  end
+
+  def test_class_preserves_block_presence
+    decorated =
+      Class.new do
+        decoor(:origin)
+        def initialize(origin)
+          @origin = origin
+        end
+      end.new(
+        Class.new do
+          def present?
+            block_given?
+          end
+        end.new
+      )
+    refute_predicate(decorated, :present?)
+    refute(decorated.present?(&nil))
+    assert(decorated.present? { 42 })
+  end
+
+  def test_object_returns_enumerator_without_block
+    enumerator = decoor([1, 2]) { 42 }.each
+    assert_instance_of(Enumerator, enumerator)
+    assert_equal([1, 2], enumerator.to_a)
+  end
+
+  def test_class_returns_enumerator_without_block
+    enumerator =
+      Class.new do
+        decoor(:origin)
+        def initialize(origin)
+          @origin = origin
+        end
+      end.new([1, 2]).each
+    assert_instance_of(Enumerator, enumerator)
+    assert_equal([1, 2], enumerator.to_a)
+  end
+
   def test_responds_to_any_method
     assert_respond_to(
       Class.new do
