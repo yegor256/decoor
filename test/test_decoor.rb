@@ -134,6 +134,28 @@ class TestDecoor < Minitest::Test
     assert_equal([1, 2], enumerator.to_a)
   end
 
+  def test_object_preserves_method_visibility
+    decorated = decoor(origin) { 42 }
+    assert_equal(42, decorated.reveal)
+    assert_raises(NoMethodError) { decorated.secret }
+    assert_raises(NoMethodError) { decorated.shielded }
+    assert_raises(NoMethodError) { decorated.rand }
+  end
+
+  def test_class_preserves_method_visibility
+    decorated =
+      Class.new do
+        decoor(:origin)
+        def initialize(origin)
+          @origin = origin
+        end
+      end.new(origin)
+    assert_equal(42, decorated.reveal)
+    assert_raises(NoMethodError) { decorated.secret }
+    assert_raises(NoMethodError) { decorated.shielded }
+    assert_raises(NoMethodError) { decorated.rand }
+  end
+
   def test_responds_to_any_method
     assert_respond_to(
       Class.new do
@@ -145,5 +167,23 @@ class TestDecoor < Minitest::Test
       :anything,
       'decorated object must respond to any method'
     )
+  end
+
+  private
+
+  def origin
+    Class.new do
+      def reveal
+        secret + shielded
+      end
+      def shielded
+        2
+      end
+      def secret
+        40
+      end
+      protected(:shielded)
+      private(:secret)
+    end.new
   end
 end

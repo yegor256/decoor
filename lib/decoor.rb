@@ -50,7 +50,7 @@ module Kernel
             attrs.each { |k, v| instance_variable_set(:"@#{k}", v) }
           end
           def method_missing(*args, &)
-            @origin.__send__(*args, &)
+            @origin.public_send(*args, &)
           end
           def respond_to?(_mtd, _inc = false)
             true
@@ -65,7 +65,7 @@ module Kernel
       class_eval("def __get_origin__; @#{origin}; end # def __get_origin__; @origin; end", __FILE__, __LINE__)
       class_eval do
         def method_missing(*args, &)
-          __get_origin__.__send__(*args, &)
+          __get_origin__.public_send(*args, &)
         end
         def respond_to?(_mtd, _inc = false)
           true
