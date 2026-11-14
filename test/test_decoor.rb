@@ -3,6 +3,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2024-2026 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
+require 'stringio'
 require_relative '../lib/decoor'
 require_relative 'test__helper'
 
@@ -156,17 +157,58 @@ class TestDecoor < Minitest::Test
     assert_raises(NoMethodError) { decorated.rand }
   end
 
-  def test_responds_to_any_method
-    assert_respond_to(
+  def test_object_responds_to_origin_methods
+    decorated = decoor('hello') { 42 }
+    assert_respond_to(decorated, :length)
+    assert_equal(5, decorated.length)
+  end
+
+  def test_object_does_not_respond_to_foreign_methods
+    decorated = decoor(Object.new) { 42 }
+    refute_respond_to(decorated, :nonexistent)
+    refute_respond_to(decorated, :to_ary)
+  end
+
+  def test_object_survives_puts_and_flatten
+    decorated = decoor(Object.new) { 42 }
+    StringIO.new.puts(decorated)
+    assert_equal([decorated], [decorated].flatten)
+  end
+
+  def test_class_responds_to_origin_methods
+    decorated =
       Class.new do
         decoor(:origin)
         def initialize(origin)
           @origin = origin
         end
-      end.new('hello'),
-      :anything,
-      'decorated object must respond to any method'
-    )
+      end.new('hello')
+    assert_respond_to(decorated, :length)
+    assert_equal(5, decorated.length)
+  end
+
+  def test_class_does_not_respond_to_foreign_methods
+    decorated =
+      Class.new do
+        decoor(:origin)
+        def initialize(origin)
+          @origin = origin
+        end
+      end.new('hello')
+    refute_respond_to(decorated, :nonexistent)
+    refute_respond_to(decorated, :to_ary)
+  end
+
+  def test_class_survives_puts_and_flatten
+    decorated =
+      Class.new do
+        decoor(:origin)
+        def initialize(origin)
+          @origin = origin
+        end
+      end.new('hello')
+    StringIO.new.puts(decorated)
+    assert_equal([decorated], [decorated].flatten)
   end
 
   private
