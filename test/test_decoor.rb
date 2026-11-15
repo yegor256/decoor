@@ -57,6 +57,45 @@ class TestDecoor < Minitest::Test
     assert_equal(12, x.foo(5, bar: 7))
   end
 
+  def test_object_delegates_keyword_arguments
+    decorated =
+      decoor(
+        Class.new do
+          def greet(name:, greeting: 'Hello')
+            "#{greeting}, #{name}!"
+          end
+          def pick(payload)
+            payload
+          end
+        end.new
+      ) { 42 }
+    assert_equal('Hello, World!', decorated.greet(name: 'World'))
+    assert_equal('Hola, World!', decorated.greet(name: 'World', greeting: 'Hola'))
+    assert_equal({ k: 1 }, decorated.pick({ k: 1 }))
+  end
+
+  def test_class_delegates_keyword_arguments
+    decorated =
+      Class.new do
+        decoor(:origin)
+        def initialize(origin)
+          @origin = origin
+        end
+      end.new(
+        Class.new do
+          def greet(name:, greeting: 'Hello')
+            "#{greeting}, #{name}!"
+          end
+          def pick(payload)
+            payload
+          end
+        end.new
+      )
+    assert_equal('Hello, World!', decorated.greet(name: 'World'))
+    assert_equal('Hola, World!', decorated.greet(name: 'World', greeting: 'Hola'))
+    assert_equal({ k: 1 }, decorated.pick({ k: 1 }))
+  end
+
   def test_class_decoration
     z =
       Class.new do

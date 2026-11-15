@@ -49,8 +49,8 @@ module Kernel
             @origin = origin
             attrs.each { |k, v| instance_variable_set(:"@#{k}", v) }
           end
-          def method_missing(*args, &)
-            @origin.public_send(*args, &)
+          def method_missing(*args, **kwargs, &)
+            @origin.public_send(*args, **kwargs, &)
           end
           def respond_to?(_mtd, _inc = false)
             true
@@ -64,8 +64,8 @@ module Kernel
     else
       class_eval("def __get_origin__; @#{origin}; end # def __get_origin__; @origin; end", __FILE__, __LINE__)
       class_eval do
-        def method_missing(*args, &)
-          __get_origin__.public_send(*args, &)
+        def method_missing(*args, **kwargs, &)
+          __get_origin__.public_send(*args, **kwargs, &)
         end
         def respond_to?(_mtd, _inc = false)
           true
