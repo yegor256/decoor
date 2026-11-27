@@ -52,11 +52,8 @@ module Kernel
           def method_missing(*args, &)
             @origin.public_send(*args, &)
           end
-          def respond_to?(_mtd, _inc = false)
-            true
-          end
-          def respond_to_missing?(_mtd, _inc = false)
-            true
+          def respond_to_missing?(mtd, inc = false)
+            @origin.respond_to?(mtd, inc) || super
           end
         end
       c.class_eval(&)
@@ -67,11 +64,8 @@ module Kernel
         def method_missing(*args, &)
           __get_origin__.public_send(*args, &)
         end
-        def respond_to?(_mtd, _inc = false)
-          true
-        end
-        def respond_to_missing?(_mtd, _inc = false)
-          true
+        def respond_to_missing?(mtd, inc = false)
+          __get_origin__.respond_to?(mtd, inc) || super
         end
       end
     end
